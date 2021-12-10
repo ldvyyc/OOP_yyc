@@ -1,0 +1,29 @@
+(1)
+无编译错误，无潜在风险
+Test()在main函数里被调用1次
+Test(int)在main函数里被调用1次
+Test(const Test&)在Test F函数定义被调用1次
+Test(Test&&)在Test F函数里被调用2次，在main里被调用1次，共3次
+移动赋值运算在main函数里被调用1次
+
+(2)
+无编译错误，无潜在风险
+Test(int)在main函数里被调用1次
+Test(const Test&)在Test F函数定义被调用1次
+Test(Test&&)在Test F函数里被调用2次
+
+(3)
+Test(int)在main函数里被调用1次
+Test(Test&&)在Test F函数定义被调用1次，在Test F函数里被调用1次，在main里被调用1次，共3次
+
+(4)
+有编译错误，有潜在风险
+编译错误：在main函数Test A = F(Test(1))中，Test(1)与函数定义中Test &A类型不同
+潜在风险：Test&& F函数返回值指向临时地址
+
+(5)
+无编译错误，有潜在风险
+潜在风险：const Test& F函数返回值指向临时地址
+Test()在main函数里被调用1次
+Test(const Test&)在Test F函数定义被调用1次
+Test(int)在Test F函数里被调用1次
